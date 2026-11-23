@@ -978,7 +978,10 @@ const fileFindingsSummary = (state: AppState, fileIdx: number): HTMLElement => {
     if (lens.id === "overview") continue;
     if (analysisAvailability(state.data, lens.id as AnalysisId).state !== "complete") continue;
     const row = rankRowsForLens(state, lens.id).rows.find(
-      (candidate) => candidate.fileIndex === fileIdx,
+      (candidate) =>
+        candidate.fileIndex === fileIdx ||
+        (candidate.clone !== undefined &&
+          state.data.files[fileIdx].clone_groups?.includes(candidate.clone)),
     );
     if (row) found.push({ lens, row });
   }

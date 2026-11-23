@@ -597,6 +597,14 @@ const init = (): void => {
   };
 
   window.addEventListener("keydown", (event) => {
+    if (
+      event.defaultPrevented ||
+      event.isComposing ||
+      event.ctrlKey ||
+      event.metaKey ||
+      event.altKey
+    )
+      return;
     const inInput = isTextInput(event.target);
     if (event.key === "Escape") {
       handleEscape(inInput);
